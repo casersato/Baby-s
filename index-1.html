@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Гильдия Free Fire</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg1:#2a0845;--bg2:#6a11cb;--card:rgba(255,255,255,.1);--line:rgba(255,255,255,.2);--text:#fff;--muted:#d9c2f5;--gold:#ffd54a;--accent:#e040fb}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100vh;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text);
+background:linear-gradient(160deg,var(--bg1),var(--bg2)) fixed;background-color:#4b0f8a}
+.wrap{max-width:720px;margin:0 auto;padding:20px 16px 40px}
+header{text-align:center;padding:24px 0 8px}
+h1{margin:0;font-size:2rem;letter-spacing:1px;text-shadow:0 0 18px var(--accent)}
+.sub{color:var(--muted);margin-top:6px}
+h2{font-size:1.1rem;margin:28px 0 10px;color:var(--gold)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:12px;margin-bottom:8px;backdrop-filter:blur(6px)}
+.num{width:30px;height:30px;border-radius:50%;background:var(--accent);display:grid;place-items:center;font-weight:700;flex:none}
+.nick{font-weight:700}
+.game{color:var(--muted);font-size:.9rem}
+.leader{border-color:var(--gold);box-shadow:0 0 16px rgba(255,213,74,.35)}
+.leader .num{background:var(--gold);color:#3a1d00}
+.badge{margin-left:auto;font-size:.75rem;background:rgba(0,0,0,.3);padding:4px 8px;border-radius:99px;color:var(--gold);white-space:nowrap}
+.vacant{opacity:.65;border-style:dashed}
+.search{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:rgba(0,0,0,.25);color:var(--text);font-size:1rem;margin-top:14px}
+.search::placeholder{color:var(--muted)}
+.count{color:var(--muted);font-size:.85rem;margin:6px 2px}
+.form{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;backdrop-filter:blur(6px)}
+.form label{display:block;margin:12px 0 6px;color:var(--muted);font-size:.9rem}
+.form input[type=text],.form input[type=number]{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:rgba(0,0,0,.25);color:var(--text);font-size:1rem}
+.form input[type=file]{width:100%;color:var(--muted);font-size:.9rem}
+#prev{display:none;max-width:100%;max-height:220px;border-radius:12px;margin-top:10px;border:1px solid var(--line)}
+.btn{width:100%;margin-top:18px;padding:14px;border:0;border-radius:12px;background:linear-gradient(90deg,#e040fb,#7c4dff);color:#fff;font-size:1.05rem;font-weight:700;cursor:pointer}
+.hint{color:var(--muted);font-size:.8rem;margin-top:10px;min-height:1em}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>💜 ГИЛЬДИЯ FREE FIRE 💜</h1>
+<div class="sub">Наш состав</div>
+</header>
+
+<h2>👑 Лидер</h2>
+<div id="leader"></div>
+
+<h2>⭐ Заместитель</h2>
+<div id="deputy"></div>
+
+<h2>🛡️ Офицеры</h2>
+<div id="officers"></div>
+
+<h2>👥 Участники</h2>
+<input class="search" id="q" type="search" placeholder="Поиск по нику или имени">
+<div class="count" id="count"></div>
+<div id="members"></div>
+
+<h2>🔥 Требования для вступления</h2>
+<div class="card"><div class="num">🏆</div><div><div class="nick">Ранг: Гранд-мастер</div></div></div>
+<div class="card"><div class="num">🎖️</div><div><div class="nick">Или: Эксперт +100 в БО</div></div></div>
+<div class="card"><div class="num">🎯</div><div><div class="nick">К/Д: от 2.5 до 3.0</div></div></div>
+<div class="card leader"><div class="num">⚡</div><div><div class="nick">Принимаем только достойных игроков!</div></div></div>
+
+<h2>📝 Заявка в гильдию</h2>
+<div class="form">
+<label for="fn">Имя</label>
+<input type="text" id="fn" placeholder="Твоё имя">
+<label for="fk">Ник в Free Fire</label>
+<input type="text" id="fk" placeholder="Твой игровой ник">
+<label for="fa">Возраст</label>
+<input type="number" id="fa" min="5" max="99" placeholder="Сколько лет">
+<label for="fu">UID</label>
+<input type="text" id="fu" inputmode="numeric" placeholder="Твой UID в Free Fire">
+<a class="btn" id="send" href="https://t.me/adlinasss" target="_blank" rel="noopener" style="display:block;text-align:center;text-decoration:none">Отправить в Telegram ✈️</a>
+<div class="hint" id="hint"></div>
+
+</div>
+
+<h2>📢 Подписывайся</h2>
+<a class="btn" href="https://t.me/otzyvisaita" target="_blank" rel="noopener" style="display:block;text-align:center;text-decoration:none">✈️ Подписаться на Telegram-канал</a>
+<a class="btn" href="https://www.tiktok.com/@adelina_ff_05" target="_blank" rel="noopener" style="display:block;text-align:center;text-decoration:none;background:rgba(0,0,0,.3);border:1px solid var(--line)">🎵 Подписаться на TikTok</a>
+</div>
+
+<script>
+// Редактируй здесь: ники и игровые имена
+var MEMBERS=[
+ {nick:"Erke baby",name:"Ailuna"},
+ {nick:"caser",name:"Диас"},
+ {nick:"Adelya baby",name:"adlinasss"},
+ {nick:"Almaz baby",name:"Nurpeis"},
+ {nick:"Argen baby",name:"argen_fff"}
+];
+var LEADER={nick:"Adelya baby",name:"adlinasss"};
+var DEPUTY=null;            // пример: {nick:"...",name:"..."}
+var OFFICERS=[null,null,null];
+var TOTAL=55;
+
+function card(p,i,cls,badge){
+ var d=document.createElement("div");
+ d.className="card"+(cls?" "+cls:"");
+ if(!p){d.className+=" vacant";d.innerHTML='<div class="num">'+(i||"?")+'</div><div><div class="nick">Вакантно</div><div class="game">место свободно</div></div>';return d;}
+ d.innerHTML='<div class="num">'+(i||"★")+'</div><div><div class="nick"></div><div class="game"></div></div>'+(badge?'<span class="badge">'+badge+'</span>':"");
+ d.querySelector(".nick").textContent=p.nick;
+ d.querySelector(".game").textContent=p.name;
+ return d;
+}
+document.getElementById("leader").appendChild(card(LEADER,0,"leader","Лидер"));
+document.getElementById("deputy").appendChild(card(DEPUTY,0));
+OFFICERS.forEach(function(o){document.getElementById("officers").appendChild(card(o,0))});
+
+function render(){
+ var q=document.getElementById("q").value.toLowerCase().trim();
+ var box=document.getElementById("members");box.innerHTML="";
+ var shown=0;
+ for(var i=0;i<TOTAL;i++){
+  var p=MEMBERS[i]||null;
+  if(q){ if(!p||(p.nick+" "+p.name).toLowerCase().indexOf(q)<0) continue; }
+  var isL=p&&p.nick===LEADER.nick;
+  box.appendChild(card(p,i+1,isL?"leader":"",isL?"Лидер":""));shown++;
+ }
+ document.getElementById("count").textContent="Игроков: "+MEMBERS.length+" из "+TOTAL;
+}
+document.getElementById("q").addEventListener("input",render);
+render();
+
+var TG="adlinasss";
+var $=function(id){return document.getElementById(id)};
+$("send").addEventListener("click",function(e){
+ var n=$("fn").value.trim(),k=$("fk").value.trim(),u=$("fu").value.trim(),a=$("fa").value.trim(),h=$("hint");
+ if(!n||!k||!u||!a){e.preventDefault();h.textContent="Заполни имя, ник, UID и возраст";return;}
+ var text="Заявка в гильдию Free Fire\nИмя: "+n+"\nНик: "+k+"\nUID: "+u+"\nВозраст: "+a;
+ this.href="https://t.me/"+TG+"?text="+encodeURIComponent(text);
+ try{navigator.clipboard.writeText(text);}catch(err){}
+ h.textContent="Открывается Telegram. Если текст не появился, он скопирован: просто вставь его в чат.";
+});
+</script>
+</body>
+</html>
